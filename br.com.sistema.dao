@@ -1,0 +1,34 @@
+
+package br.com.sistema.dao;
+
+import java.sql.Connection;
+import java.sql.DriverManager;
+import java.sql.SQLException;
+import java.sql.Statement;
+
+/**
+ *
+ * @author Paulo Montouro
+ */
+public class Cliente {
+
+    public void cadastrarCliente(String nome, String cpf, String rg, String bairro, String rua, String numero, String cidade, String cep, String telefone, String email) throws ClassNotFoundException {
+       try{
+           Class.forName("org.postgresql.Driver");
+           String url ="jdbc:postgresql://localhost/3306";
+           String usuario = "postgres";
+           String senha = "postdba";
+           Connection conn = DriverManager.getConnection(url,usuario,senha);
+           Statement stnt = null;
+           String sql = "Insert into cliente(nome,cpf,rg,bairro,rua,numero,cidade,cep,telefone,email) values('"+nome+"','"+cpf+"','"+rg+"','"+bairro+"','"+rua+"','"+numero+"','"+cidade+"','"+cep+"','"+telefone+"','"+email+"')";
+           stnt = conn.createStatement();
+           stnt.executeUpdate(sql);
+       }
+       catch(SQLException sqle){
+           System.out.println(sqle.getMessage());
+       }
+       
+        
+    }
+    
+}
